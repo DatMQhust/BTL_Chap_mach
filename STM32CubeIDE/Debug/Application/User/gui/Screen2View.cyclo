@@ -1,0 +1,32 @@
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:147:23:virtual touchgfx::Drawable* touchgfx::Drawable::getFirstChild()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:315:18:virtual void touchgfx::Drawable::setX(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:327:18:virtual void touchgfx::Drawable::setY(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:356:18:virtual void touchgfx::Drawable::setWidth(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:368:18:virtual void touchgfx::Drawable::setHeight(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:378:18:virtual void touchgfx::Drawable::childGeometryChanged()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:389:18:virtual void touchgfx::Drawable::handleClickEvent(const touchgfx::ClickEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:401:18:virtual void touchgfx::Drawable::handleGestureEvent(const touchgfx::GestureEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:490:18:virtual void touchgfx::Drawable::handleDragEvent(const touchgfx::DragEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:501:18:virtual void touchgfx::Drawable::handleTickEvent()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:588:18:virtual void touchgfx::Drawable::moveTo(int16_t, int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:703:18:virtual void touchgfx::Drawable::setupDrawChain(const touchgfx::Rect&, touchgfx::Drawable**)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
+../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp:22:13:Screen2View::~Screen2View()	2
+../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp:22:13:virtual Screen2View::~Screen2View()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	2
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	3
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:6:1:Screen2View::Screen2View()	4
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:86:6:void Screen2View::ensureMatchablePattern()	6
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:42:6:void Screen2View::initEggGrid()	4
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:106:6:void Screen2View::renderEggGrid()	9
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:196:6:void Screen2View::addNewTopRow()	3
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:178:6:void Screen2View::dropEggGrid()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:216:6:bool Screen2View::checkGameOver()	5
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:240:6:void Screen2View::spawnNextEgg()	5
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:155:6:void Screen2View::onEggShot()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:257:6:void Screen2View::updateScore()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:264:6:void Screen2View::clearEggGrid()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:36:6:virtual void Screen2View::tearDownScreen()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:16:6:virtual void Screen2View::setupScreen()	3
