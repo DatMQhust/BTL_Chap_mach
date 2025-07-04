@@ -339,50 +339,63 @@ int readADCChannel(ADC_HandleTypeDef* hadc, uint32_t channel)
     return val;
 }
 
-// CẢI THIỆN updateJoystickInput() - Tăng độ nhạy:
 void Screen2View::updateJoystickInput()
 {
     extern ADC_HandleTypeDef hadc1;
+    extern UART_HandleTypeDef huart1;
 
+    // Đọc giá trị ADC từ joystick
     uint32_t adcX = readADCChannel(&hadc1, ADC_CHANNEL_13);
     uint32_t adcY = readADCChannel(&hadc1, ADC_CHANNEL_5);
 
+    // Nếu chưa calibrate, lấy vị trí hiện tại làm gốc
     if (!isCalibrated) {
         joystickCenterX = adcX;
         joystickCenterY = adcY;
         isCalibrated = true;
 
         char msg[64];
-        snprintf(msg, sizeof(msg), "Calibrated - X:%d Y:%d\r\n",
-                joystickCenterX, joystickCenterY);
+        snprintf(msg, sizeof(msg), "Calibrated - X:%lu Y:%lu\r\n", adcX, adcY);
         HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
     }
 
-    // Tính giá trị thô
+    // Tính toán rawX/rawY
     int16_t rawX = (int16_t)(adcX - joystickCenterX);
     int16_t rawY = (int16_t)(adcY - joystickCenterY);
 
-    // Deadzone nhỏ hơn để nhạy hơn
+    // Deadzone để tránh nhiễu
     const int SMALL_DEADZONE = JOYSTICK_DEADZONE / 2;
-    if(abs(rawX) < SMALL_DEADZONE) rawX = 0;
-    if(abs(rawY) < SMALL_DEADZONE) rawY = 0;
+    if (abs(rawX) < SMALL_DEADZONE) rawX = 0;
+    if (abs(rawY) < SMALL_DEADZONE) rawY = 0;
 
-    // Scale để tăng độ nhạy
+    // Clamp và scale
     const int MAX_RANGE = 800;
     rawX = clamp<int16_t>(rawX, -MAX_RANGE, MAX_RANGE);
     rawY = clamp<int16_t>(rawY, -MAX_RANGE, MAX_RANGE);
 
-    // Áp dụng curve để mượt hơn ở giá trị nhỏ
+    // Làm mượt
     joystickX = applySmoothCurve(rawX, MAX_RANGE);
     joystickY = applySmoothCurve(rawY, MAX_RANGE);
 
-    // Xử lý nút bắn
+    // Kiểm tra nút nhấn (SW)
     GPIO_PinState buttonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_2);
     bool currentPressed = (buttonState == GPIO_PIN_RESET);
+
     if (currentPressed && !lastButtonPressed)
     {
+        // Gọi chức năng bắn
         shootEgg();
+
+        // Bật buzzer (PD12) trong thời gian ngắn
+        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET); // Buzzer ON
+        HAL_Delay(50); // kêu 50ms
+        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET); // Buzzer OFF
+
+        // Debug UART nếu cần
+        const char* beepMsg = "Beep!\r\n";
+        HAL_UART_Transmit(&huart1, (uint8_t*)beepMsg, strlen(beepMsg), 100);
     }
+
     lastButtonPressed = currentPressed;
 }
 

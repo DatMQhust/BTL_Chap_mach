@@ -24,6 +24,7 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent() override;
 
+
 protected:
     void initEggGrid();
     void renderEggGrid();
