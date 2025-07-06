@@ -1,4 +1,4 @@
-#include <gui/screen2_screen/Screen2View.hpp>
+ #include <gui/screen2_screen/Screen2View.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Unicode.hpp>
 #include "main.h"
@@ -509,11 +509,11 @@ void Screen2View::debugAiming()
     if (now - lastTick > 300) // Debug mỗi 300ms
     {
         lastTick = now;
-        char msg[200];
-        snprintf(msg, sizeof(msg),
-           "Target:%d.%d", (int)targetAngle, abs((int)(targetAngle * 10) % 10));
-
-        HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+//        char msg[200];
+//        snprintf(msg, sizeof(msg),
+//           "Target:%d.%d", (int)targetAngle, abs((int)(targetAngle * 10) % 10));
+//
+//        HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
     }
 }
 // THÊM HÀM TIỆN ÍCH - Reset về góc 0:
@@ -569,7 +569,7 @@ void Screen2View::shootEgg()
 
     float dirX = sin(radians);
     float dirY = -cos(radians);
-    float speed = 10.0f;
+    float speed = 3.0f;
 
     createProjectile(startX, startY, dirX * speed, dirY * speed);
     onEggShot(); // Hàm này sẽ gọi spawnNextEgg() để tạo trứng mới
@@ -607,7 +607,7 @@ void Screen2View::updateProjectile()
     if (!projectileActive) return;
 
     const int BALL_SIZE = 32;
-    const int SCREEN_WIDTH = 480;
+    const int SCREEN_WIDTH = 240 ;
     const int SCREEN_HEIGHT = 320; // hoặc chiều cao thực tế
 
     // Lưu vị trí cũ
@@ -646,7 +646,7 @@ void Screen2View::updateProjectile()
     {
         projectileStartTime = HAL_GetTick();
     }
-    else if (projectileActive && (HAL_GetTick() - projectileStartTime) > 5000) // 5 giây
+    else if (projectileActive && (HAL_GetTick() - projectileStartTime) > 10000) // 5 giây
     {
         projectileActive = false;
         projectileImage.setVisible(false);
@@ -886,52 +886,88 @@ void Screen2View::checkProjectileCollision()
 {
     if (!projectileActive) return;
 
-    const int CELL_SIZE = 32;
+    const int EGG_WIDTH = 32;
+    const int EGG_HEIGHT = 32;
+    const int EGG_SPACING_X = 36;
+    const int EGG_SPACING_Y = 31;
+    const int HEX_OFFSET = 18;
 
-    int projCenterX = projectileX + CELL_SIZE / 2;
-    int projCenterY = projectileY + CELL_SIZE / 2;
+    int baseX = container2.getX();
+    int baseY = container2.getY();
 
-    for (int row = 0; row < ROWS; ++row)
+    float projCenterX = projectileX;
+    float projCenterY = projectileY;
+
+    const float collisionRadius = 55.0f;
+    const float collisionRadiusSquared = collisionRadius * collisionRadius;
+
+    // Log vị trí đạn
+//    char projMsg[64];
+//    snprintf(projMsg, sizeof(projMsg), "Projectile Pos: (%d, %d)\r\n",
+//             (int)projCenterX, (int)projCenterY);
+//    HAL_UART_Transmit(&huart1, (uint8_t*)projMsg, strlen(projMsg), 100);
+
+    // Dùng để kiểm tra va chạm trứng
+    bool collided = false;
+
+    for (int row = 0; row < ROWS && !collided; ++row)
     {
-        for (int col = 0; col < COLS; ++col)
+        for (int col = 0; col < COLS && !collided; ++col)
         {
-            if (eggGrid[row][col] != EMPTY)
+            if (eggGrid[row][col] == EMPTY) continue;
+
+            int xOffset = (row % 2 == 1) ? HEX_OFFSET : 0;
+            int eggX = baseX + col * EGG_SPACING_X + xOffset;
+            int eggY = baseY + row * EGG_SPACING_Y;
+
+            float eggCenterX = eggX + EGG_WIDTH / 2.0f;
+            float eggCenterY = eggY + EGG_HEIGHT / 2.0f;
+
+            float dx = projCenterX - eggCenterX;
+            float dy = projCenterY - eggCenterY;
+            float d2 = dx * dx + dy * dy;
+
+            // Log mỗi quả được kiểm tra
+//            char msg[128];
+//            snprintf(msg, sizeof(msg),
+//                "[Check R:%d C:%d] EggC:(%d,%d) d²:%d r²:%d\r\n",
+//                row, col, (int)eggCenterX, (int)eggCenterY, (int)d2, (int)collisionRadiusSquared);
+//            HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+            if (d2 <= collisionRadiusSquared)
             {
-                int xOffset = (row % 2 == 1) ? 16 : 0;
-                int eggX = container2.getX() + col * 36 + xOffset; // 36 = spacing X
-                int eggY = container2.getY() + row * 31;           // 31 = spacing Y
+                collided = true;
 
-                int dx = projCenterX - (eggX + CELL_SIZE / 2);
-                int dy = projCenterY - (eggY + CELL_SIZE / 2);
-                int distanceSquared = dx * dx + dy * dy;
+                // Thực sự va chạm
+                projectileActive = false;
+                projectileImage.setVisible(false);
+                projectileImage.invalidate();
 
-                if (distanceSquared <= (CELL_SIZE / 2) * (CELL_SIZE / 2)) // va chạm tròn
-                {
-                    // Dừng đạn
-                    projectileActive = false;
-                    projectileImage.setVisible(false);
-                    projectileImage.invalidate();
-
-                    handleCollisionWithEgg(row, col);
-                    return;
-                }
+                HAL_UART_Transmit(&huart1, (uint8_t*)"Va cham - STOP!\r\n", 18, 100);
+                handleCollisionWithEgg(row, col);
+                break;
             }
         }
     }
 
-    // Nếu chạm trần
-    if (projectileY <= container2.getY())
+    // Nếu không va trứng nào, kiểm tra trần
+    if (!collided && projectileY <= baseY)
     {
-        int col = (projectileX - container2.getX()) / 36; // spacing X
-
+        float projCenterXRel = projCenterX - baseX;
+        int col = (int)(projCenterXRel / EGG_SPACING_X);
         col = clamp(col, 0, COLS - 1);
+
         projectileActive = false;
         projectileImage.setVisible(false);
         projectileImage.invalidate();
 
+        HAL_UART_Transmit(&huart1, (uint8_t*)"Chạm trần - Gắn trên cùng\r\n", 28, 100);
         handleCollisionWithEgg(0, col);
     }
 }
+
+
+
 
 
 void Screen2View::updateProjectileVisual()
