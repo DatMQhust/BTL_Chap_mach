@@ -135,7 +135,7 @@
           {
             "InteractionName": "Interaction1",
             "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
+              "Type": "TriggerPhysicalButtonClicked"
             },
             "Action": {
               "Type": "ActionGotoScreen",

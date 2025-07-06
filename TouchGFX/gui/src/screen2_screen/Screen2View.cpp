@@ -123,9 +123,9 @@ void Screen2View::ensureMatchablePattern()
         {
             if(eggGrid[row][col] != EMPTY && eggGrid[row][col + 1] != EMPTY)
             {
-                // 20% cơ hội tạo cặp cùng màu
+                // 30% cơ hội tạo cặp cùng màu
                 uint32_t chance = (HAL_GetTick() + row * col) % 100;
-                if(chance < 20)
+                if(chance < 30)
                 {
                     eggGrid[row][col + 1] = eggGrid[row][col];
                 }
