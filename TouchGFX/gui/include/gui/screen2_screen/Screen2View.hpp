@@ -22,25 +22,96 @@ public:
     virtual ~Screen2View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleTickEvent() override;
+
 
 protected:
     void initEggGrid();
     void renderEggGrid();
     void spawnNextEgg();
-    void updateScore();
+    void updateScore(int destroyedCount);
     void clearEggGrid();
     void ensureMatchablePattern();
     void dropEggGrid();
     void addNewTopRow();
+
 private:
     uint8_t eggGrid[ROWS][COLS];
     touchgfx::Image eggImages[ROWS][COLS];
     int score;
     Unicode::UnicodeChar scoreBuffer[10];
-    int shotCount;           // Đếm số lần bắn
-	static const int SHOTS_BEFORE_DROP = 5; // Sau 5 lần bắn thì hạ xuống
-	void onEggShot();        // Gọi mỗi khi bắn trứng
-	bool checkGameOver();
+    int shotCount;
+    static const int SHOTS_BEFORE_DROP = 5;
+    void onEggShot();
+    bool checkGameOver();
+
+    // Biến joystick
+    int16_t joystickX, joystickY;
+    int16_t aimAngle;
+    uint8_t currentEggColor; // Màu của viên đạn hiện tại (nextEgg)
+
+    // Biến trạng thái viên đạn
+    float projectileX, projectileY;
+    float projectileVX, projectileVY;
+    bool projectileActive;
+    bool lastButtonPressed = false;
+
+    // Hình ảnh viên đạn
+    touchgfx::Image projectileImage;
+
+    // Calibration
+    int16_t joystickCenterX = 0;
+    int16_t joystickCenterY = 0;
+    bool isCalibrated = false;
+
+    // Cấu hình joystick
+    static constexpr int16_t JOYSTICK_DEADZONE = 200;
+    static constexpr int16_t JOYSTICK_MAX_RANGE = 800;
+
+    // Hàm xử lý logic
+    void clearNextEgg();
+    void updateJoystickInput();
+    void updateAimDirection();
+    void updateCannonAndEggPosition();
+    void updateAimLine();
+    void updateAimVisual();
+    void shootEgg();
+    void createProjectile(int x, int y, float vx, float vy);
+    void updateProjectile();
+    void checkProjectileCollision();
+    void updateProjectileVisual();
+    void testJoystickWithNextEgg();
+    void debugNextEgg();
+    void resetJoystickCalibration();
+    // Thêm đúng tham số khớp với .cpp
+    void handleCollisionWithEgg(int hitRow, int hitCol);
+    void findAndRemoveMatchingGroup(int row, int col);
+    void debugJoystick();
+    void debugAiming();
+    void smoothAngleToTarget();
+    void setAimAngle(float angle);
+    void resetAimToCenter();
+    int16_t  applySmoothCurve(int16_t value, int16_t maxRange);
+    int getCannonBaseX();
+    int getCannonBaseY();
+    bool isValidGridPosition(int row, int col);
+    void forceResetGame();
+    // THÊM CÁC BIẾN MỚI CHO SMOOTH AIMING:
+        float targetAngle;        // Góc đích muốn đạt tới
+        float currentAngleFloat;  // Góc hiện tại (dạng float để tính toán mượt)
+        bool isAiming;           // Có đang ngắm không
+        uint32_t lastAimTime;    // Thời gian lần cuối ngắm
+
+        // Hằng số điều chỉnh
+        static const int STOP_AIM_DELAY = 200;      // 200ms sau khi dừng mới dừng ngắm
+        static constexpr float SMOOTH_FACTOR = 0.15f;
+        static constexpr float ANGLE_THRESHOLD = 0.5f;
+        int findBestAttachPosition(int hitRow, int hitCol);
+        int findBestAttachColumn(int targetRow, int preferredCol);
+        void handleFailedAttachment(int col);
+        void handleBottomCollision(int col);
+        void emergencyStopProjectile();
+
 };
 
 #endif // SCREEN2VIEW_HPP

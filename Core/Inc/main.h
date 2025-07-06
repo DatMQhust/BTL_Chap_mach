@@ -70,6 +70,7 @@ void Error_Handler(void);
 #define SPI5_NCS_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
+extern UART_HandleTypeDef huart1;
 
 /* USER CODE END Private defines */
 
