@@ -21,48 +21,48 @@ C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.external
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	1
 C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:19:1:Screen2View::Screen2View()	4
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:124:6:void Screen2View::ensureMatchablePattern()	6
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:116:6:void Screen2View::ensureMatchablePattern()	6
 C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:80:6:void Screen2View::initEggGrid()	4
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:144:6:void Screen2View::renderEggGrid()	9
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:234:6:void Screen2View::addNewTopRow()	3
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:216:6:void Screen2View::dropEggGrid()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:254:6:bool Screen2View::checkGameOver()	5
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:278:6:void Screen2View::spawnNextEgg()	5
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:193:6:void Screen2View::onEggShot()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:301:6:void Screen2View::updateScore(int)	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:310:6:void Screen2View::clearEggGrid()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:326:5:int readADCChannel(ADC_HandleTypeDef*, uint32_t)	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:449:6:void Screen2View::clearNextEgg()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:136:6:void Screen2View::renderEggGrid()	9
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:225:6:void Screen2View::addNewTopRow()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:207:6:void Screen2View::dropEggGrid()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:245:6:bool Screen2View::checkGameOver()	5
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:269:6:void Screen2View::spawnNextEgg()	5
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:185:6:void Screen2View::onEggShot()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:292:6:void Screen2View::updateScore(int)	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:301:6:void Screen2View::clearEggGrid()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:317:5:int readADCChannel(ADC_HandleTypeDef*, uint32_t)	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:440:6:void Screen2View::clearNextEgg()	1
 C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:73:6:virtual void Screen2View::tearDownScreen()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:474:6:void Screen2View::resetJoystickCalibration()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:485:6:void Screen2View::updateCannonAndEggPosition()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:505:6:void Screen2View::debugAiming()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:520:6:void Screen2View::resetAimToCenter()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:527:6:void Screen2View::setAimAngle(float)	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:535:6:void Screen2View::updateAimLine()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:579:6:void Screen2View::createProjectile(int, int, float, float)	6
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:554:6:void Screen2View::shootEgg()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:668:6:void Screen2View::updateAimVisual()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:877:5:int Screen2View::getCannonBaseX()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:881:5:int Screen2View::getCannonBaseY()	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:973:6:void Screen2View::updateProjectileVisual()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:990:6:bool Screen2View::isValidGridPosition(int, int)	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:732:5:int Screen2View::findBestAttachPosition(int, int)	9
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:766:5:int Screen2View::findBestAttachColumn(int, int)	8
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:995:6:void Screen2View::debugJoystick()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1011:6:void Screen2View::smoothAngleToTarget()	4
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1035:9:int16_t Screen2View::applySmoothCurve(int16_t, int16_t)	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:342:6:void Screen2View::updateJoystickInput()	4
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:455:6:void Screen2View::testJoystickWithNextEgg()	2
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:404:6:void Screen2View::updateAimDirection()	6
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1049:6:void Screen2View::forceResetGame()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:465:6:void Screen2View::resetJoystickCalibration()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:476:6:void Screen2View::updateCannonAndEggPosition()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:496:6:void Screen2View::debugAiming()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:511:6:void Screen2View::resetAimToCenter()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:518:6:void Screen2View::setAimAngle(float)	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:526:6:void Screen2View::updateAimLine()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:570:6:void Screen2View::createProjectile(int, int, float, float)	6
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:545:6:void Screen2View::shootEgg()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:660:6:void Screen2View::updateAimVisual()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:754:5:int Screen2View::findBestAttachPosition(int, int)	11
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:788:5:int Screen2View::findBestAttachColumn(int, int)	10
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:899:5:int Screen2View::getCannonBaseX()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:903:5:int Screen2View::getCannonBaseY()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:995:6:void Screen2View::updateProjectileVisual()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1012:6:bool Screen2View::isValidGridPosition(int, int)	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1017:6:void Screen2View::debugJoystick()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1033:6:void Screen2View::smoothAngleToTarget()	4
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1057:9:int16_t Screen2View::applySmoothCurve(int16_t, int16_t)	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:333:6:void Screen2View::updateJoystickInput()	4
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:446:6:void Screen2View::testJoystickWithNextEgg()	2
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:395:6:void Screen2View::updateAimDirection()	6
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:1071:6:void Screen2View::forceResetGame()	1
 C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/c++/13.3.1/bits/std_function.h:587:7:) const [with _Res = void; _ArgTypes = {int, int}]	1
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:837:6:void Screen2View::findAndRemoveMatchingGroup(int, int)	5
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:799:6:void Screen2View::handleFailedAttachment(int)	4
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:675:6:void Screen2View::handleCollisionWithEgg(int, int)	8
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:885:6:void Screen2View::checkProjectileCollision()	9
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:605:6:void Screen2View::updateProjectile()	9
-C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:443:6:virtual void Screen2View::handleTickEvent()	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:859:6:void Screen2View::findAndRemoveMatchingGroup(int, int)	5
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:821:6:void Screen2View::handleFailedAttachment(int)	4
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:667:6:void Screen2View::handleCollisionWithEgg(int, int)	15
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:907:6:void Screen2View::checkProjectileCollision()	9
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:597:6:void Screen2View::updateProjectile()	9
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:434:6:virtual void Screen2View::handleTickEvent()	1
 C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/c++/13.3.1/bits/vector.tcc:445:7:) [with _Args = {int&, int&}; _Tp = std::pair<int, int>; _Alloc = std::allocator<std::pair<int, int> >]	6
 C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/c++/13.3.1/bits/std_function.h:288:7:) [with _Res = void; _Functor = Screen2View::findAndRemoveMatchingGroup(int, int)::<lambda(int, int)>; _ArgTypes = {int, int}]	8
 C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2View.cpp:32:6:virtual void Screen2View::setupScreen()	4

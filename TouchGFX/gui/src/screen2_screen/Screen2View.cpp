@@ -90,17 +90,9 @@ void Screen2View::initEggGrid()
 
     uint32_t baseTick = HAL_GetTick();
 
-    for(int row = 0; row < 3; row++) // 3 hàng đầu
+    for(int row = 0; row < 2; row++) // 3 hàng đầu
     {
         int maxCols = COLS;
-
-        // Giảm số lượng trứng theo từng hàng
-        switch(row)
-        {
-            case 0: maxCols = COLS; break;
-            case 1: maxCols = COLS; break;
-            case 2: maxCols = COLS; break;
-        }
 
         // Căn giữa các trứng trong hàng
         int startCol = (COLS - maxCols) / 2;
@@ -130,9 +122,9 @@ void Screen2View::ensureMatchablePattern()
         {
             if(eggGrid[row][col] != EMPTY && eggGrid[row][col + 1] != EMPTY)
             {
-                // 30% cơ hội tạo cặp cùng màu
+                // 20% cơ hội tạo cặp cùng màu
                 uint32_t chance = (HAL_GetTick() + row * col) % 100;
-                if(chance < 30)
+                if(chance < 20)
                 {
                     eggGrid[row][col + 1] = eggGrid[row][col];
                 }
@@ -203,8 +195,7 @@ void Screen2View::onEggShot()
 //        // Kiểm tra game over
 //        if(checkGameOver())
 //        {
-//            // Chuyển sang Screen 3 (Game Over)
-//            application().gotoScreen3ScreenNoTransition();
+//
 //            return;
 //        }
     }
@@ -236,11 +227,11 @@ void Screen2View::addNewTopRow()
     // Thêm hàng mới ở trên với pattern logic
     uint32_t tick = HAL_GetTick();
 
-    // 70% cơ hội có trứng ở hàng mới
+    // 100% cơ hội có trứng ở hàng mới
     for(int col = 0; col < COLS; col++)
     {
         uint32_t seed = tick + col * 23;
-        if((seed % 100) < 70)
+        if((seed % 100) < 100)
         {
             eggGrid[0][col] = (seed % 5) + 1; // Random màu
         }
@@ -589,6 +580,7 @@ void Screen2View::createProjectile(int x, int y, float vx, float vy)
                           (int)projectileY - projectileImage.getHeight()/2);
     projectileImage.setVisible(true);
     projectileImage.invalidate();
+    projectileColor = currentEggColor;
     // Cập nhật bitmap đạn theo màu
     switch(currentEggColor)
     {
@@ -676,14 +668,14 @@ void Screen2View::handleCollisionWithEgg(int hitRow, int hitCol)
 {
     if (!isValidGridPosition(hitRow, hitCol))
     {
-        // Nếu vị trí không hợp lệ, tìm vị trí gần nhất ở hàng đầu
+        // Nếu vị trí không hợp lệ, đặt vào hàng đầu
         hitRow = 0;
         hitCol = clamp(hitCol, 0, COLS - 1);
     }
 
     int attachRow = -1, attachCol = -1;
 
-    // Trường hợp 1: Va chạm với ô trống - đặt trực tiếp
+    // Trường hợp 1: va vào ô trống → gắn trực tiếp
     if (eggGrid[hitRow][hitCol] == EMPTY)
     {
         attachRow = hitRow;
@@ -691,42 +683,72 @@ void Screen2View::handleCollisionWithEgg(int hitRow, int hitCol)
     }
     else
     {
-        // Trường hợp 2: Va chạm với trứng có sẵn - tìm ô trống gần nhất
-        attachRow = findBestAttachPosition(hitRow, hitCol);
-        if (attachRow != -1)
+        // Trường hợp 2: va vào trứng có sẵn → tìm ô lân cận gần nhất theo lưới tổ ong
+        const int dr[] = {-1,-1,0,0,1,1};
+        const int dc_even[] = {-1,0,-1,1,-1,0};
+        const int dc_odd[]  = {0,1,-1,1,0,1};
+
+        float minDistSquared = 1e9;
+        int bestRow = -1, bestCol = -1;
+
+        for (int i = 0; i < 6; ++i)
         {
-            // Tính lại attachCol dựa trên attachRow
-            attachCol = findBestAttachColumn(attachRow, hitCol);
+            int nr = hitRow + dr[i];
+            int nc = hitCol + ((hitRow % 2 == 0) ? dc_even[i] : dc_odd[i]);
+
+            if (!isValidGridPosition(nr, nc)) continue;
+            if (eggGrid[nr][nc] != EMPTY) continue;
+
+            // Tính tâm ô trứng (pixel)
+            int baseX = container2.getX();
+            int baseY = container2.getY();
+            int xOffset = (nr % 2 == 1) ? 18 : 0;
+            float cellX = baseX + nc * 36 + xOffset + 16;
+            float cellY = baseY + nr * 31 + 16;
+
+            float dx = projectileX - cellX;
+            float dy = projectileY - cellY;
+            float d2 = dx * dx + dy * dy;
+
+            if (d2 < minDistSquared)
+            {
+                minDistSquared = d2;
+                bestRow = nr;
+                bestCol = nc;
+            }
         }
+
+        attachRow = bestRow;
+        attachCol = bestCol;
     }
 
-    // Đặt trứng và xử lý
+    // Nếu tìm được ô trống để gắn
     if (attachRow != -1 && attachCol != -1 &&
         isValidGridPosition(attachRow, attachCol) &&
         eggGrid[attachRow][attachCol] == EMPTY)
     {
-        eggGrid[attachRow][attachCol] = currentEggColor;
+        eggGrid[attachRow][attachCol] = projectileColor;
         renderEggGrid();
 
-        // Debug thông tin
         char msg[64];
         snprintf(msg, sizeof(msg), "Attached at (%d,%d) color:%d\r\n",
                 attachRow, attachCol, currentEggColor);
         HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
 
-        findAndRemoveMatchingGroup(attachRow, attachCol);
+//        findAndRemoveMatchingGroup(attachRow, attachCol);
     }
     else
     {
-        // Không tìm được vị trí hợp lệ - xử lý game over hoặc đặt ở hàng đầu
+        // Không tìm được → ép vào hàng đầu hoặc báo game over
         handleFailedAttachment(hitCol);
     }
 
-    // Luôn luôn dừng projectile
+    // Luôn dừng viên đạn
     projectileActive = false;
     projectileImage.setVisible(false);
     projectileImage.invalidate();
 }
+
 
 // HÀM TIỆN ÍCH MỚI - Tìm hàng tốt nhất để đặt trứng:
 int Screen2View::findBestAttachPosition(int hitRow, int hitCol)
@@ -898,7 +920,7 @@ void Screen2View::checkProjectileCollision()
     float projCenterX = projectileX;
     float projCenterY = projectileY;
 
-    const float collisionRadius = 55.0f;
+    const float collisionRadius = 50.0f;
     const float collisionRadiusSquared = collisionRadius * collisionRadius;
 
     // Log vị trí đạn

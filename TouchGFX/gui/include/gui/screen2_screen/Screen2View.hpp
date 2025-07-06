@@ -49,6 +49,7 @@ private:
     int16_t joystickX, joystickY;
     int16_t aimAngle;
     uint8_t currentEggColor; // Màu của viên đạn hiện tại (nextEgg)
+    uint8_t projectileColor ; // mùa của viên đang bay
 
     // Biến trạng thái viên đạn
     float projectileX, projectileY;
