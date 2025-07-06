@@ -1,5 +1,5 @@
 Middlewares/FreeRTOS/list.o: \
- C:/TouchGFXProjects/BTL_Chap_mach/Middlewares/Third_Party/FreeRTOS/Source/list.c \
+ C:/TouchGFXProjects/Egg_shoot_v2/Middlewares/Third_Party/FreeRTOS/Source/list.c \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \

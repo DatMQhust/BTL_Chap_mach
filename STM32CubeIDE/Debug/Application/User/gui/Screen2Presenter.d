@@ -1,5 +1,5 @@
 Application/User/gui/Screen2Presenter.o: \
- C:/TouchGFXProjects/BTL_Chap_mach/TouchGFX/gui/src/screen2_screen/Screen2Presenter.cpp \
+ C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/gui/src/screen2_screen/Screen2Presenter.cpp \
  ../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
