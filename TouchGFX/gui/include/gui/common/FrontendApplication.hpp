@@ -20,5 +20,5 @@ public:
     }
 private:
 };
-
+FrontendApplication& application();
 #endif // FRONTENDAPPLICATION_HPP

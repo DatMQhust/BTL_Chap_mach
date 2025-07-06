@@ -28,6 +28,9 @@ public:
     // Screen2
     void gotoScreen2ScreenCoverTransitionEast();
 
+    // GameOver
+    void gotoGameOverScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -40,6 +43,9 @@ protected:
 
     // Screen2
     void gotoScreen2ScreenCoverTransitionEastImpl();
+
+    // GameOver
+    void gotoGameOverScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

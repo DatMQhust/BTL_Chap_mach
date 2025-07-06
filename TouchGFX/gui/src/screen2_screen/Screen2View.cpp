@@ -16,7 +16,7 @@ T clamp(T value, T minVal, T maxVal)
     return value;
 }
 
-Screen2View::Screen2View() : score(0), shotCount(0),
+Screen2View::Screen2View() : score(0), shotCount(0), droppedLineCount(0),
                            targetAngle(0), currentAngleFloat(0),
                            isAiming(false), lastAimTime(0)
 {
@@ -48,6 +48,7 @@ void Screen2View::setupScreen()
 	    }
 
 	    shotCount = 0;
+	    droppedLineCount = 0;
 	    aimAngle = 0;
 
 	    initEggGrid();
@@ -220,6 +221,11 @@ void Screen2View::dropEggGrid()
 
     // Render lại
     renderEggGrid();
+    droppedLineCount++;
+	if(droppedLineCount > MAX_DROP_LINES || checkBottomRowOccupied())
+	{
+		triggerGameOver();
+	}
 }
 
 void Screen2View::addNewTopRow()
@@ -241,7 +247,31 @@ void Screen2View::addNewTopRow()
         }
     }
 }
+bool Screen2View::checkBottomRowOccupied()
+{
+    for(int col = 0; col < COLS; ++col)
+        if(eggGrid[ROWS - 1][col] != EMPTY)
+            return true;
+    return false;
+}
 
+/* Hàm dùng chung để đóng game và nhảy màn */
+void Screen2View::triggerGameOver()
+{
+    // Tắt viên đạn đang bay (nếu có)
+    projectileActive = false;
+    projectileImage.setVisible(false);
+    projectileImage.invalidate();
+
+    HAL_UART_Transmit(&huart1,
+        (uint8_t*)"GAME OVER – drop > 5!\r\n", 24, 100);
+
+    notifyGameOver();
+}
+void Screen2View::notifyGameOver()
+{
+    presenter->handleGameOver();   // Gọi sang presenter
+}
 bool Screen2View::checkGameOver()
 {
     // Kiểm tra xem có trứng nào ở hàng cuối không
@@ -840,6 +870,8 @@ void Screen2View::findAndRemoveMatchingGroup(int row, int col)
         for(int i=0;i<gsize;i++) eggGrid[groupR[i]][groupC[i]] = EMPTY;
         updateScore(gsize);
         renderEggGrid();
+        if(checkBottomRowOccupied())
+            triggerGameOver();
         HAL_UART_Transmit(&huart1, (uint8_t*)"Group cleared!\r\n", 16, 100);
     }
 }

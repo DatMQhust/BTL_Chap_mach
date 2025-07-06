@@ -26,6 +26,7 @@ public:
     virtual void deactivate();
 
     virtual ~Screen2Presenter() {}
+    void handleGameOver();
 
 private:
     Screen2Presenter();

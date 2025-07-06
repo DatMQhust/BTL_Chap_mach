@@ -10,7 +10,7 @@
         <Translation Language="GB">0</Translation>
       </Text>
       <Text Id="playAgain" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">Play again</Translation>
+        <Translation Language="GB">Play</Translation>
       </Text>
       <Text Id="finalScoreText" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">Score: &lt;value&gt;</Translation>

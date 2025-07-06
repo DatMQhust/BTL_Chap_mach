@@ -26,10 +26,10 @@
     <ClCompile Include="..\..\gui\src\screen2_screen\Screen2Presenter.cpp"/>
     <ClCompile Include="..\..\gui\src\screen2_screen\Screen2View.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\screen2_screen\Screen2ViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen3_screen\Screen3Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen3_screen\Screen3View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\screen3_screen\Screen3ViewBase.cpp"/>
     <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp"/>
+    <ClCompile Include="..\..\gui\src\gameover_screen\GameOverPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\gameover_screen\GameOverView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\gameover_screen\GameOverViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -184,11 +184,11 @@
     <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2Presenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2View.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen2_screen\Screen2ViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen3_screen\Screen3Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen3_screen\Screen3View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen3_screen\Screen3ViewBase.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
     <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\gameover_screen\GameOverPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\gameover_screen\GameOverView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\gameover_screen\GameOverViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>
