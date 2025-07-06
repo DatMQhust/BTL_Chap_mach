@@ -59,6 +59,9 @@ private:
 
     // Hình ảnh viên đạn
     touchgfx::Image projectileImage;
+    bool pendingGroupClear = false;
+    int pendingRow = -1;
+    int pendingCol = -1;
 
     // Calibration
     int16_t joystickCenterX = 0;

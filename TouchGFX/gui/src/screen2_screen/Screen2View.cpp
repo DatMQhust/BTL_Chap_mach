@@ -436,6 +436,14 @@ void Screen2View::handleTickEvent()
     updateAimDirection();
     updateProjectile();
     debugAiming();  // THÊM dòng này để debug
+    if (pendingGroupClear)
+    {
+        pendingGroupClear = false; // Đánh dấu đã xử lý
+        findAndRemoveMatchingGroup(pendingRow, pendingCol);
+
+        // Sau khi xử lý xong, tạo quả mới
+        onEggShot();
+    }
 }
 void Screen2View::clearNextEgg()
 {
@@ -563,8 +571,7 @@ void Screen2View::shootEgg()
     float speed = 3.0f;
 
     createProjectile(startX, startY, dirX * speed, dirY * speed);
-    onEggShot(); // Hàm này sẽ gọi spawnNextEgg() để tạo trứng mới
-}
+    }
 
 // Hàm tạo đạn bay (cần implement thêm)
 void Screen2View::createProjectile(int x, int y, float vx, float vy)
@@ -734,8 +741,10 @@ void Screen2View::handleCollisionWithEgg(int hitRow, int hitCol)
         snprintf(msg, sizeof(msg), "Attached at (%d,%d) color:%d\r\n",
                 attachRow, attachCol, currentEggColor);
         HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+        pendingGroupClear = true;
+        pendingRow = attachRow;
+        pendingCol = attachCol;
 
-//        findAndRemoveMatchingGroup(attachRow, attachCol);
     }
     else
     {
@@ -747,75 +756,11 @@ void Screen2View::handleCollisionWithEgg(int hitRow, int hitCol)
     projectileActive = false;
     projectileImage.setVisible(false);
     projectileImage.invalidate();
+
 }
 
 
-// HÀM TIỆN ÍCH MỚI - Tìm hàng tốt nhất để đặt trứng:
-int Screen2View::findBestAttachPosition(int hitRow, int hitCol)
-{
-    // Ưu tiên tìm từ trên xuống dưới
-    for (int row = 0; row < ROWS; row++)
-    {
-        // Kiểm tra cột trực tiếp trước
-        if (isValidGridPosition(row, hitCol) && eggGrid[row][hitCol] == EMPTY)
-        {
-            return row;
-        }
 
-        // Kiểm tra các cột xung quanh
-        for (int offset = 1; offset <= 2; offset++)
-        {
-            // Kiểm tra bên trái
-            int leftCol = hitCol - offset;
-            if (isValidGridPosition(row, leftCol) && eggGrid[row][leftCol] == EMPTY)
-            {
-                return row;
-            }
-
-            // Kiểm tra bên phải
-            int rightCol = hitCol + offset;
-            if (isValidGridPosition(row, rightCol) && eggGrid[row][rightCol] == EMPTY)
-            {
-                return row;
-            }
-        }
-    }
-
-    return -1; // Không tìm được
-}
-
-// HÀM TIỆN ÍCH MỚI - Tìm cột tốt nhất trong hàng đã chọn:
-int Screen2View::findBestAttachColumn(int targetRow, int preferredCol)
-{
-    // Ưu tiên cột preferredCol trước
-    if (isValidGridPosition(targetRow, preferredCol) &&
-        eggGrid[targetRow][preferredCol] == EMPTY)
-    {
-        return preferredCol;
-    }
-
-    // Tìm cột gần nhất
-    for (int offset = 1; offset < COLS; offset++)
-    {
-        // Kiểm tra bên trái
-        int leftCol = preferredCol - offset;
-        if (isValidGridPosition(targetRow, leftCol) &&
-            eggGrid[targetRow][leftCol] == EMPTY)
-        {
-            return leftCol;
-        }
-
-        // Kiểm tra bên phải
-        int rightCol = preferredCol + offset;
-        if (isValidGridPosition(targetRow, rightCol) &&
-            eggGrid[targetRow][rightCol] == EMPTY)
-        {
-            return rightCol;
-        }
-    }
-
-    return -1; // Không tìm được
-}
 
 // HÀM XỬ LÝ KHI KHÔNG ĐẶT ĐƯỢC TRỨNG:
 void Screen2View::handleFailedAttachment(int col)
@@ -858,44 +803,49 @@ void Screen2View::handleFailedAttachment(int col)
 // void handleFailedAttachment(int col);
 void Screen2View::findAndRemoveMatchingGroup(int row, int col)
 {
-    const int color = eggGrid[row][col];
-    bool visited[ROWS][COLS] = {false};
-    std::vector<std::pair<int,int>> group;
+    if(!isValidGridPosition(row,col)) return;
+    int color = eggGrid[row][col];
+    if(color == EMPTY) return;
 
-    std::function<void(int,int)> dfs = [&](int r, int c)
+    static bool visited[ROWS][COLS];
+    memset(visited, 0, sizeof(visited));
+
+    const int MAX = ROWS*COLS;
+    int stackR[MAX], stackC[MAX], top = 0;
+    int groupR[MAX], groupC[MAX], gsize = 0;
+
+    stackR[top] = row; stackC[top++] = col; visited[row][col] = true;
+
+    const int dr[6]      = {-1,-1,0,0,1,1};
+    const int dc_even[6] = {-1,0,-1,1,-1,0};
+    const int dc_odd[6]  = {0,1,-1,1,0,1};
+
+    while(top)
     {
-        if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return;
-        if (visited[r][c]) return;
-        if (eggGrid[r][c] != color) return;
+        int r = stackR[--top], c = stackC[top];
+        groupR[gsize] = r; groupC[gsize++] = c;
 
-        visited[r][c] = true;
-        group.emplace_back(r, c);
-
-        const int dr[] = {-1,-1,0,0,1,1};
-        const int dc_even[] = {-1,0,-1,1,-1,0};
-        const int dc_odd[]  = {0,1,-1,1,0,1};
-
-        for (int i = 0; i < 6; ++i)
+        for(int i=0;i<6;i++)
         {
             int nr = r + dr[i];
-            int nc = c + ((r % 2 == 0) ? dc_even[i] : dc_odd[i]);
-            dfs(nr, nc);
+            int nc = c + ((r&1)? dc_odd[i] : dc_even[i]);
+            if(!isValidGridPosition(nr,nc) || visited[nr][nc] || eggGrid[nr][nc]!=color) continue;
+            visited[nr][nc] = true;
+            stackR[top] = nr; stackC[top++] = nc;
         }
-    };
-
-    dfs(row, col);
-
-    if (group.size() >= 3)
-    {
-        for (auto& p : group)
-        {
-            eggGrid[p.first][p.second] = EMPTY;
-        }
-        renderEggGrid(); // Cập nhật lại sau khi xóa
-        updateScore(group.size());  // ✅ Mới: cập nhật điểm theo số lượng bóng bị xóa
     }
 
+    if(gsize >= 3)
+    {
+        for(int i=0;i<gsize;i++) eggGrid[groupR[i]][groupC[i]] = EMPTY;
+        updateScore(gsize);
+        renderEggGrid();
+        HAL_UART_Transmit(&huart1, (uint8_t*)"Group cleared!\r\n", 16, 100);
+    }
 }
+
+
+
 int Screen2View::getCannonBaseX() {
     return canon.getX() + canon.getWidth() / 2;
 }
@@ -923,13 +873,6 @@ void Screen2View::checkProjectileCollision()
     const float collisionRadius = 50.0f;
     const float collisionRadiusSquared = collisionRadius * collisionRadius;
 
-    // Log vị trí đạn
-//    char projMsg[64];
-//    snprintf(projMsg, sizeof(projMsg), "Projectile Pos: (%d, %d)\r\n",
-//             (int)projCenterX, (int)projCenterY);
-//    HAL_UART_Transmit(&huart1, (uint8_t*)projMsg, strlen(projMsg), 100);
-
-    // Dùng để kiểm tra va chạm trứng
     bool collided = false;
 
     for (int row = 0; row < ROWS && !collided; ++row)
@@ -949,12 +892,6 @@ void Screen2View::checkProjectileCollision()
             float dy = projCenterY - eggCenterY;
             float d2 = dx * dx + dy * dy;
 
-            // Log mỗi quả được kiểm tra
-//            char msg[128];
-//            snprintf(msg, sizeof(msg),
-//                "[Check R:%d C:%d] EggC:(%d,%d) d²:%d r²:%d\r\n",
-//                row, col, (int)eggCenterX, (int)eggCenterY, (int)d2, (int)collisionRadiusSquared);
-//            HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
 
             if (d2 <= collisionRadiusSquared)
             {
