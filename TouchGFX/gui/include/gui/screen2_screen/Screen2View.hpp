@@ -23,6 +23,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleTickEvent() override;
+    int getScore() const { return score; }
 
 
 protected:
@@ -34,6 +35,7 @@ protected:
     void ensureMatchablePattern();
     void dropEggGrid();
     void addNewTopRow();
+    void notifyGameOver();
 
 private:
     uint8_t eggGrid[ROWS][COLS];
@@ -44,6 +46,8 @@ private:
     static const int SHOTS_BEFORE_DROP = 5;
     void onEggShot();
     bool checkGameOver();
+    bool checkBottomRowOccupied();
+    void triggerGameOver();
 
     // Biến joystick
     int16_t joystickX, joystickY;
@@ -62,6 +66,8 @@ private:
     bool pendingGroupClear = false;
     int pendingRow = -1;
     int pendingCol = -1;
+    static const int MAX_DROP_LINES = 5;   // hạ quá 5 dòng thì thua
+    int droppedLineCount;
 
     // Calibration
     int16_t joystickCenterX = 0;

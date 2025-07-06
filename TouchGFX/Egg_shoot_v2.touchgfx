@@ -131,10 +131,22 @@
             "Components": []
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "GameOver"
+            }
+          }
+        ]
       },
       {
-        "Name": "Screen3",
+        "Name": "GameOver",
         "Components": [
           {
             "Type": "Box",

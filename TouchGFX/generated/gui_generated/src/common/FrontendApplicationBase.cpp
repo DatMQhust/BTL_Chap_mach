@@ -13,8 +13,8 @@
 #include <gui/screen1_screen/Screen1Presenter.hpp>
 #include <gui/screen2_screen/Screen2View.hpp>
 #include <gui/screen2_screen/Screen2Presenter.hpp>
-#include <gui/screen3_screen/Screen3View.hpp>
-#include <gui/screen3_screen/Screen3Presenter.hpp>
+#include <gui/gameover_screen/GameOverView.hpp>
+#include <gui/gameover_screen/GameOverPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -70,4 +70,17 @@ void FrontendApplicationBase::gotoScreen2ScreenCoverTransitionEast()
 void FrontendApplicationBase::gotoScreen2ScreenCoverTransitionEastImpl()
 {
     touchgfx::makeTransition<Screen2View, Screen2Presenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// GameOver
+
+void FrontendApplicationBase::gotoGameOverScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoGameOverScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoGameOverScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<GameOverView, GameOverPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

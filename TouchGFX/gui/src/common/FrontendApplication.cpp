@@ -5,3 +5,7 @@ FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
 {
 
 }
+FrontendApplication& application()
+{
+    return *static_cast<FrontendApplication*>(Application::getInstance());
+}
