@@ -119,7 +119,7 @@ _Ảnh chụp minh họa:_
 
 - **RNG (Random Number Generator)**  
   - Tạo ra các đặc tính ngẫu nhiên cho từng màn chơi như màu sắc, vị trí trứng hoặc hướng rơi.  
-  - Có thể sử dụng `HAL_GetTick()` làm seed cho phép sinh số giả ngẫu nhiên (`rand() % n`).  
+  - Sử dụng HAL_RNG_GenerateRandomNumber() để tạo màu ngẫu nhiên (có fallback là dùng HAL_GetTick())  
   - Giúp tăng độ thử thách và tính đa dạng cho trò chơi.
 
 - **Timer (TouchGFX tick)**  
@@ -291,5 +291,4 @@ _Ảnh chụp minh họa:_
   
 ### KẾT QUẢ
 
-- Các ảnh chụp với caption giải thích.
-- Hoặc video sản phẩm
+- Link video demo: https://youtu.be/S8OTtfaylVM
