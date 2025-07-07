@@ -868,12 +868,6 @@ void Screen2View::findAndRemoveMatchingGroup(int row, int col)
         for(int i=0;i<gsize;i++) eggGrid[groupR[i]][groupC[i]] = EMPTY;
         updateScore(gsize);
         renderEggGrid();
-        if (hasEggBelowVisible())
-        {
-        	HAL_UART_Transmit(&huart1,
-        	        (uint8_t*)"GAME OVER from find and match group\r\n", 24, 100);
-            triggerGameOver();
-        }
         HAL_UART_Transmit(&huart1, (uint8_t*)"Group cleared!\r\n", 16, 100);
     }
 }

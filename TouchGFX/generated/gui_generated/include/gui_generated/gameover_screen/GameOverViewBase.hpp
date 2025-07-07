@@ -34,6 +34,10 @@ protected:
     touchgfx::TextAreaWithOneWildcard finalScore;
     touchgfx::ButtonWithLabel playAgain;
 
+    static const uint16_t SCORETEXT_SIZE = 10;
+
+    touchgfx::Unicode::UnicodeChar scoreTextBuffer[SCORETEXT_SIZE];
+
 private:
 
     /*

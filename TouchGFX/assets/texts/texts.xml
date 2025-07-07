@@ -13,7 +13,7 @@
         <Translation Language="GB">Play</Translation>
       </Text>
       <Text Id="finalScoreText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">Score: &lt;value&gt;</Translation>
+        <Translation Language="GB">Score: &lt;&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_PZKF" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">GAME OVER</Translation>

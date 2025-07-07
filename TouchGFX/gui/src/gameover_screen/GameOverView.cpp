@@ -8,8 +8,9 @@ GameOverView::GameOverView()
 void GameOverView::setupScreen()
 {
     GameOverViewBase::setupScreen();
-    finalScore.setWildcard(scoreBuffer);  // ← Cố định
-    scoreBuffer[0] = 0;
+    finalScore.setWildcard(scoreBuffer);
+    Unicode::snprintf(scoreBuffer, 10, "%d", 0);
+    finalScore.invalidate();
 }
 
 void GameOverView::tearDownScreen()
@@ -18,9 +19,6 @@ void GameOverView::tearDownScreen()
 }
 void GameOverView::showScore(int s)
 {
-	Unicode::snprintf(scoreBuffer,
-	                      sizeof(scoreBuffer) / sizeof(Unicode::UnicodeChar),
-	                      "%d",
-	                      s);
+	Unicode::snprintf(scoreBuffer, 10, "%d", s);
     finalScore.invalidate();
 }

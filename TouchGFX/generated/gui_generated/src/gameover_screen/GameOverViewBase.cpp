@@ -30,6 +30,9 @@ GameOverViewBase::GameOverViewBase() :
     finalScore.setXY(74, 148);
     finalScore.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     finalScore.setLinespacing(0);
+    Unicode::snprintf(scoreTextBuffer, SCORETEXT_SIZE, "%s", touchgfx::TypedText(T_SCORETEXTVALUE).getText());
+    finalScore.setWildcard(scoreTextBuffer);
+    finalScore.resizeToCurrentText();
     finalScore.setTypedText(touchgfx::TypedText(T_FINALSCORETEXT));
     add(finalScore);
 
