@@ -35,6 +35,7 @@ C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/generated/gui_generated/src/screen2_sc
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:43:18:virtual void touchgfx::TextAreaWithWildcardBase::invalidateContent() const	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:111:18:virtual void touchgfx::TextArea::setBaselineY(int16_t)	1
+C:/TouchGFXProjects/Egg_shoot_v2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:54:6:virtual void Screen2ViewBase::handleKeyEvent(uint8_t)	2
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:49:36:virtual touchgfx::TextArea::BoundingArea touchgfx::TextAreaWithWildcardBase::calculateBoundingArea() const	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:48:5:touchgfx::Drawable::Drawable()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	1
