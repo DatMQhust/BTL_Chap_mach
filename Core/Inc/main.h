@@ -42,7 +42,8 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+uint32_t getRandom32(void);
+uint8_t  randomColor(void);
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
