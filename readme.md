@@ -291,4 +291,5 @@ _Ảnh chụp minh họa:_
   
 ### KẾT QUẢ
 
-- Link video demo: https://youtu.be/S8OTtfaylVM
+[![Xem Video Demo](https://img.youtube.com/vi/S8OTtfaylVM/0.jpg)](https://www.youtube.com/watch?v=S8OTtfaylVM)  
+📺 **Video demo**: Game bắn trứng khủng long điều khiển bằng joystick (STM32 + TouchGFX).
