@@ -45,7 +45,7 @@ _Ảnh chụp minh họa:_
 - Thành viên trong nhóm
   |STT|Họ tên|MSSV|Công việc|
   |--:|--|--|--|
-  |1| Mai Quốc Đạt|20225277|hiện thị oled, hiệu ứng, và xử lý ngắt|
+  |1| Mai Quốc Đạt|20225277|hiện thị oled, hiệu ứng, và xử lý logic va chạm, xử lý logic RNG, xử lý logic xoá trứng và update điểm|
   |2| Dương Đăng Duy|20225185|Kết nối, cấu hình điều khiển Joystick, còi Buzzer; cài đặt góc bắn ; xử lý hiệu ứng viên đạn bay và va chạm|
   |1| Bùi Gia Lộc|20225142|hiện thị oled, hiệu ứng, và xử lý ngắt|
   
