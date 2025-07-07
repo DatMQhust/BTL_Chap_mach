@@ -89,7 +89,6 @@ void Screen2View::initEggGrid()
         }
     }
 
-    uint32_t baseTick = HAL_GetTick();
 
     for(int row = 0; row < 2; row++) // 3 hàng đầu
     {
@@ -103,9 +102,7 @@ void Screen2View::initEggGrid()
             int actualCol = startCol + col;
             if(actualCol >= 0 && actualCol < COLS)
             {
-                // Tạo màu ngẫu nhiên nhưng đảm bảo có thể match được
-                uint32_t seed = baseTick + row * 13 + col * 7;
-                eggGrid[row][actualCol] = (seed % 5) + 1;
+                eggGrid[row][actualCol] = randomColor();;
             }
         }
     }
@@ -123,9 +120,9 @@ void Screen2View::ensureMatchablePattern()
         {
             if(eggGrid[row][col] != EMPTY && eggGrid[row][col + 1] != EMPTY)
             {
-                // 20% cơ hội tạo cặp cùng màu
-                uint32_t chance = (HAL_GetTick() + row * col) % 100;
-                if(chance < 20)
+                // 30% cơ hội tạo cặp cùng màu
+                uint32_t chance = (getRandom32() + row * col) % 100;
+                if(chance < 30)
                 {
                     eggGrid[row][col + 1] = eggGrid[row][col];
                 }
@@ -205,6 +202,16 @@ void Screen2View::onEggShot()
     spawnNextEgg();
 }
 
+
+/** Trả về true nếu hàng ngay dưới vùng hiển thị (index = 5) có trứng */
+bool Screen2View::hasEggBelowVisible() const
+{
+    for (int col = 0; col < COLS; ++col)
+        if (eggGrid[VISIBLE_ROWS][col] != EMPTY)
+            return true;
+    return false;
+}
+
 void Screen2View::dropEggGrid()
 {
     // Di chuyển tất cả trứng xuống 1 hàng
@@ -221,8 +228,8 @@ void Screen2View::dropEggGrid()
 
     // Render lại
     renderEggGrid();
-    droppedLineCount++;
-	if(droppedLineCount > MAX_DROP_LINES || checkBottomRowOccupied())
+
+	if(hasEggBelowVisible())
 	{
 		triggerGameOver();
 	}
@@ -233,18 +240,9 @@ void Screen2View::addNewTopRow()
     // Thêm hàng mới ở trên với pattern logic
     uint32_t tick = HAL_GetTick();
 
-    // 100% cơ hội có trứng ở hàng mới
     for(int col = 0; col < COLS; col++)
     {
-        uint32_t seed = tick + col * 23;
-        if((seed % 100) < 100)
-        {
-            eggGrid[0][col] = (seed % 5) + 1; // Random màu
-        }
-        else
-        {
-            eggGrid[0][col] = EMPTY;
-        }
+        eggGrid[0][col] = randomColor(); // Luôn có trứng ở mỗi ô
     }
 }
 bool Screen2View::checkBottomRowOccupied()
@@ -303,7 +301,7 @@ void Screen2View::spawnNextEgg()
     nextEgg.invalidate();
 
     uint32_t tick = HAL_GetTick();
-    uint8_t color = (tick % 5) + 1;
+    uint8_t color = randomColor();
     currentEggColor = color; // <== THÊM DÒNG NÀY
 
     switch(color)
@@ -870,8 +868,12 @@ void Screen2View::findAndRemoveMatchingGroup(int row, int col)
         for(int i=0;i<gsize;i++) eggGrid[groupR[i]][groupC[i]] = EMPTY;
         updateScore(gsize);
         renderEggGrid();
-        if(checkBottomRowOccupied())
+        if (hasEggBelowVisible())
+        {
+        	HAL_UART_Transmit(&huart1,
+        	        (uint8_t*)"GAME OVER from find and match group\r\n", 24, 100);
             triggerGameOver();
+        }
         HAL_UART_Transmit(&huart1, (uint8_t*)"Group cleared!\r\n", 16, 100);
     }
 }

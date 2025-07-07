@@ -7,6 +7,7 @@
 #include <touchgfx/Color.hpp>
 
 #define ROWS 5
+#define VISIBLE_ROWS 5
 #define COLS 6
 #define EMPTY 0
 #define RED 1
@@ -14,6 +15,7 @@
 #define GREEN 3
 #define YELLOW 4
 #define PURPLE 5
+
 
 class Screen2View : public Screen2ViewBase
 {
@@ -34,6 +36,7 @@ protected:
     void clearEggGrid();
     void ensureMatchablePattern();
     void dropEggGrid();
+    bool hasEggBelowVisible() const;
     void addNewTopRow();
     void notifyGameOver();
 

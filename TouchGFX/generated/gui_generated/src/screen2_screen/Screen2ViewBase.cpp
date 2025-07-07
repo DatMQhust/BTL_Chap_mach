@@ -48,13 +48,5 @@ Screen2ViewBase::~Screen2ViewBase()
 
 void Screen2ViewBase::setupScreen()
 {
-    transitionBegins();
-}
 
-void Screen2ViewBase::transitionBegins()
-{
-    //Interaction1
-    //When screen transition begins change screen to GameOver
-    //Go to GameOver with no screen transition
-    application().gotoGameOverScreenNoTransition();
 }
