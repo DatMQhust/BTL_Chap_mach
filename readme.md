@@ -38,6 +38,17 @@ __Sản phẩm:__
 
 
 _Ảnh chụp minh họa:_
+   - Screen1:
+     ![z6779802892988_abbf0531b1280fcf7b581d81a7bfb1a6](https://github.com/user-attachments/assets/b541439d-704d-4d1a-8eeb-7e57409dce4c)
+   - Screen2:
+     ![z6779796516187_98677983efed2f49631b07eb1d42190b](https://github.com/user-attachments/assets/3f175188-a8fc-412a-b267-f47e819930a7)
+   - Screen3:
+     ![z6779796516963_8ce38e9d6363994f6a36c4069e4eb2d2](https://github.com/user-attachments/assets/8a099e5f-6a2b-4d3a-a6d3-c83c717da2f1)
+
+     
+
+     
+
  
 ## TÁC GIẢ
 
